@@ -1,0 +1,12 @@
+## Interface: 70300
+## X-Interface: 70300
+## Title: BlueBugs UI Fixes
+## Author: Justin Snelgrove
+## Version: 1
+## X-WoW-Version: 7.3.5
+## X-WoW-Build: 25950
+## Notes: Miscellaneous UI fixes.
+## X-Category: Library
+## X-License: ISC
+
+BlueBugs.xml
