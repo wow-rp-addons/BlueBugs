@@ -36,10 +36,17 @@
 	Possible fix locations:
 	Interface\FrameXML\UIDropDownMenu.lua:35-59
 	Interface\FrameXML\UIDropDownMenu.lua:608-623
+
+	The communites frame is a special case, as it doesn't bother initializing
+	even a single menu before starting to muck around with them, so the
+	absolutely hideous workaround is to show and hide a frame that will
+	initialize a secure menu in OnShow. The AddonList is a very good target, as
+	it also prevents the community frame from opening if it's open.
 ]]
 
-local UIDDMR_VERSION = 1
+local UIDDMR_VERSION = 2
 if (BLUEBUGS_UIDDMR_VERSION or 0) < UIDDMR_VERSION then
+
 	hooksecurefunc("UIDropDownMenu_InitializeHelper", function(frame)
 		if UIDDMR_VERSION < BLUEBUGS_UIDDMR_VERSION then return end
 
@@ -62,5 +69,18 @@ if (BLUEBUGS_UIDDMR_VERSION or 0) < UIDDMR_VERSION then
 			end
 		end
 	end)
+
+	hooksecurefunc("Communities_LoadUI", function()
+		if UIDDMR_VERSION < BLUEBUGS_UIDDMR_VERSION then return end
+
+		-- This is a really sick (read: twisted, horrible) way of resetting
+		-- to a secured UIDROPDOWNMENU_MENU_LEVEL, but it works.
+		if not AddonList:IsShown() then
+			AddonList:Show()
+			AddonList:Hide()
+		end
+	end)
+
 	BLUEBUGS_UIDDMR_VERSION = UIDDMR_VERSION
+
 end
