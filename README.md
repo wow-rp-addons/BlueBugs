@@ -6,7 +6,7 @@ APIs used in documented ways to spread taint through the UI.
 
 The two fixes currently contained are:
 
-* UIDropDownMenu value tainting
+* UIDropDownMenu value tainting, including a Communities UI sub-fix
 * InterfaceCategoryList selection tainting
 
 More information on these fixes and possible ways Blizzard employees may be able

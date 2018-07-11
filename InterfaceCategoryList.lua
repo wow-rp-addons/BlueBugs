@@ -28,6 +28,7 @@
 local ICLU_VERSION = 1
 
 if (BLUEBUGS_ICLU_VERSION or 0) < ICLU_VERSION then
+
 	InterfaceOptionsFrame:HookScript("OnHide", function(self)
 		if ICLU_VERSION < BLUEBUGS_ICLU_VERSION then return end
 		if not issecurevariable(InterfaceOptionsFrameCategories, "selection")
@@ -35,5 +36,6 @@ if (BLUEBUGS_ICLU_VERSION or 0) < ICLU_VERSION then
 			InterfaceOptionsFrameCategories.selection = nil
 		end
 	end)
+
 	BLUEBUGS_ICLU_VERSION = ICLU_VERSION
 end

@@ -47,6 +47,8 @@
 local UIDDMR_VERSION = 2
 if (BLUEBUGS_UIDDMR_VERSION or 0) < UIDDMR_VERSION then
 
+	local ADDONLIST_WORKAROUND_FUNCTIONS = { "Communities_LoadUI" }
+
 	hooksecurefunc("UIDropDownMenu_InitializeHelper", function(frame)
 		if UIDDMR_VERSION < BLUEBUGS_UIDDMR_VERSION then return end
 
@@ -70,7 +72,7 @@ if (BLUEBUGS_UIDDMR_VERSION or 0) < UIDDMR_VERSION then
 		end
 	end)
 
-	hooksecurefunc("Communities_LoadUI", function()
+	local function FlashAddonList()
 		if UIDDMR_VERSION < BLUEBUGS_UIDDMR_VERSION then return end
 
 		-- This is a really sick (read: twisted, horrible) way of resetting
@@ -79,8 +81,13 @@ if (BLUEBUGS_UIDDMR_VERSION or 0) < UIDDMR_VERSION then
 			AddonList:Show()
 			AddonList:Hide()
 		end
-	end)
+	end
+
+	for i, funcName in ipairs(ADDONLIST_WORKAROUND_FUNCTIONS) do
+		if _G[funcName] then
+			hooksecurefunc(funcName, FlashAddonList)
+		end
+	end
 
 	BLUEBUGS_UIDDMR_VERSION = UIDDMR_VERSION
-
 end
